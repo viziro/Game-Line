@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>เกมจุดสามเหลี่ยม</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="menu" class="screen">
+    <div class="sheet">
+      <h1>เกมจุด<span class="p0">สาม</span><span class="p1">เหลี่ยม</span></h1>
+      <p class="tagline">ทอยเต๋า · ลากเส้น · ปิดสามเหลี่ยมให้ได้มากที่สุด</p>
+
+      <div id="invite" class="invite" hidden></div>
+
+      <label class="field">
+        <span>ชื่อของคุณ</span>
+        <input id="name" type="text" maxlength="16" placeholder="ผู้เล่น" autocomplete="off">
+      </label>
+
+      <div class="field">
+        <span>จำนวนจุด</span>
+        <div class="seg" id="dotsSeg">
+          <button type="button" data-v="12">12</button>
+          <button type="button" data-v="16">16</button>
+          <button type="button" data-v="20" class="on">20</button>
+          <button type="button" data-v="24">24</button>
+        </div>
+      </div>
+
+      <section class="mode">
+        <h2>เล่นกับคอมพิวเตอร์</h2>
+        <div class="row">
+          <div class="seg" id="levelSeg">
+            <button type="button" data-v="easy">ง่าย</button>
+            <button type="button" data-v="normal" class="on">ปานกลาง</button>
+            <button type="button" data-v="hard">ยาก</button>
+          </div>
+          <button type="button" class="btn primary" id="playAi">เริ่มเล่น</button>
+        </div>
+      </section>
+
+      <section class="mode">
+        <h2>เล่น 2 คน เครื่องเดียวกัน</h2>
+        <div class="row">
+          <span class="hint">ผลัดกันเล่นบนจอเดียว</span>
+          <button type="button" class="btn primary" id="playLocal">เริ่มเล่น</button>
+        </div>
+      </section>
+
+      <section class="mode">
+        <h2>เล่นออนไลน์กับเพื่อน</h2>
+        <div class="row">
+          <span class="hint">สร้างห้องแล้วส่งลิงก์ให้เพื่อน</span>
+          <button type="button" class="btn primary" id="createRoom">สร้างห้อง</button>
+        </div>
+        <div class="row">
+          <input id="code" type="text" maxlength="4" placeholder="รหัสห้อง" autocomplete="off" autocapitalize="characters" spellcheck="false">
+          <button type="button" class="btn" id="joinRoom">เข้าห้อง</button>
+        </div>
+      </section>
+
+      <details class="rules">
+        <summary>วิธีเล่น</summary>
+        <ol>
+          <li>ผลัดกันทอยลูกเต๋า ได้แต้มเท่าไรลากเส้นได้เท่านั้นเส้น</li>
+          <li>แต่ละเส้นต้องเชื่อมจุด 2 จุด และห้ามตัดกับเส้นที่มีอยู่แล้ว</li>
+          <li>ใครลากเส้นปิดสามเหลี่ยมได้ (ข้างในไม่มีจุดอื่น) ได้สามเหลี่ยมนั้นไป 1 แต้ม</li>
+          <li>เกมจบเมื่อลากเส้นต่อไม่ได้แล้ว ใครมีสามเหลี่ยมมากกว่าเป็นผู้ชนะ</li>
+        </ol>
+      </details>
+    </div>
+  </main>
+
+  <main id="game" class="screen" hidden>
+    <header class="bar">
+      <button type="button" class="btn ghost" id="back">← เมนู</button>
+      <button type="button" class="chip" id="roomChip" hidden></button>
+      <span class="progress" id="progress"></span>
+    </header>
+
+    <div class="hud">
+      <div class="player p0" id="card0">
+        <span class="sym">♥</span>
+        <span class="who"><b id="name0"></b><small id="tag0"></small></span>
+        <span class="score" id="score0">0</span>
+      </div>
+
+      <div class="dicebox">
+        <button type="button" class="die" id="die" aria-label="ทอยลูกเต๋า">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </button>
+        <span class="left" id="left"></span>
+      </div>
+
+      <div class="player p1" id="card1">
+        <span class="score" id="score1">0</span>
+        <span class="who"><b id="name1"></b><small id="tag1"></small></span>
+        <span class="sym">★</span>
+      </div>
+    </div>
+
+    <p class="status" id="status"></p>
+
+    <div class="boardwrap">
+      <svg id="board" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="overlay" id="overlay" hidden>
+        <div class="card">
+          <h2 id="ovTitle"></h2>
+          <p id="ovText"></p>
+          <div class="row center" id="ovButtons"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="game.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
